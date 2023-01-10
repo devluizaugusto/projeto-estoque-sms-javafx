@@ -7,8 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<VBox prefHeight="234.0" prefWidth="335.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19">
+<VBox prefHeight="234.0" prefWidth="335.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label text="Sobre">
          <font>
@@ -26,10 +25,13 @@
             <Font name="System Italic" size="14.0" />
          </font>
       </Label>
-      <ImageView fitHeight="150.0" fitWidth="327.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="150.0" fitWidth="268.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../Desktop/Documentos/4844646_stock-photo-3d-white-people-stock-boy-stacking-boxes.jpg" />
          </image>
+         <VBox.margin>
+            <Insets left="20.0" />
+         </VBox.margin>
       </ImageView>
    </children>
 </VBox>
