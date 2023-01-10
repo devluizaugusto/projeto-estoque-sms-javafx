@@ -9,8 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<VBox prefHeight="354.0" prefWidth="483.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19">
+<VBox prefHeight="354.0" prefWidth="544.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ProductListController">
    <children>
       <Label text="Registros de Produtos">
          <font>
@@ -22,16 +21,16 @@
       </Label>
       <ToolBar prefHeight="40.0" prefWidth="200.0">
         <items>
-          <Button mnemonicParsing="false" text="Novo" />
+          <Button fx:id="btNovo" mnemonicParsing="false" onAction="#onBtNovoAction" text="Novo" />
         </items>
       </ToolBar>
-      <TableView prefHeight="200.0" prefWidth="200.0">
+      <TableView fx:id="tableViewProduto" prefHeight="200.0" prefWidth="511.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="Id" />
-          <TableColumn prefWidth="75.0" text="Nome" />
-            <TableColumn prefWidth="89.0" text="Qtd Entrada" />
-            <TableColumn prefWidth="78.0" text="Qtd Saida" />
-            <TableColumn prefWidth="84.0" text="Qtd Total" />
+          <TableColumn fx:id="tableColumnId" prefWidth="75.0" text="Id" />
+          <TableColumn fx:id="tableColumnNome" prefWidth="75.0" text="Nome" />
+            <TableColumn fx:id="tableColumnQtdEntrada" prefWidth="89.0" text="Qtd Entrada" />
+            <TableColumn fx:id="tableColumnQtdSaida" prefWidth="78.0" text="Qtd Saida" />
+            <TableColumn fx:id="tableColumnQtdTotal" prefWidth="84.0" text="Qtd Total" />
         </columns>
       </TableView>
    </children>
