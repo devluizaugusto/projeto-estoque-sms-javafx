@@ -9,9 +9,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import model.entities.Product;
 
 public class ProductFormController implements Initializable {
-
+	
+	private Product entity;
+	
 	@FXML
 	private TextField txtId;
 	
@@ -46,6 +49,10 @@ public class ProductFormController implements Initializable {
 		System.out.println("onBtCancelar");
 	}
 	
+	public void setProduct(Product entity) {
+		this.entity = entity;
+	}
+	
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {	
 		initializeNodes();
@@ -57,6 +64,18 @@ public class ProductFormController implements Initializable {
 		Constraints.setTextFieldInteger(txtQtdEntrada);
 		Constraints.setTextFieldInteger(txtQtdSaida);
 		Constraints.setTextFieldInteger(txtQtdTotal);
+	}
+	
+	public void updateFormData() {
+		if(entity == null) {
+			throw new IllegalStateException("Entidade estava nula!");
+		}
+		txtId.setText(String.valueOf(entity.getId()));
+		txtNome.setText(entity.getNome());
+		txtQtdEntrada.setText(String.valueOf(entity.getQtdEntrada()));
+		txtQtdSaida.setText(String.valueOf(entity.getQtdSaida()));
+		txtQtdTotal.setText(String.valueOf(entity.getQtdTotal()));
+		
 	}
 
 }
