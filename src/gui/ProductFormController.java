@@ -1,9 +1,12 @@
 package gui;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import db.DbException;
+import gui.listners.DataChangeListners;
 import gui.util.Alerts;
 import gui.util.Constraints;
 import gui.util.Utils;
@@ -23,6 +26,8 @@ public class ProductFormController implements Initializable {
 
 	private ProductService service;
 
+	private List<DataChangeListners> dataChangeListner = new ArrayList<>();
+	
 	@FXML
 	private TextField txtId;
 
@@ -54,6 +59,10 @@ public class ProductFormController implements Initializable {
 	public void setProductService(ProductService service) {
 		this.service = service;
 	}
+	
+	public void subscribeDataChangeListner(DataChangeListners listner) {
+		dataChangeListner.add(listner);
+	}
 
 	@FXML
 	public void onBtSalvar(ActionEvent event) {
@@ -66,12 +75,19 @@ public class ProductFormController implements Initializable {
 		try {
 		entity = getFormData();
 		service.saveOrUpdate(entity);
+		notifyDataChangeListner();
 		Utils.currentStage(event).close();
 	}
 		catch (DbException e) {
 			Alerts.showAlerts("Erro salvando produto", null, e.getMessage(), AlertType.ERROR);
 		}
 	}
+	private void notifyDataChangeListner() {
+		for (DataChangeListners listner : dataChangeListner) {
+			listner.onDataChanged();
+		}
+	}
+
 	private Product getFormData() {
 		Product obj = new Product();
 		
@@ -113,5 +129,5 @@ public class ProductFormController implements Initializable {
 		txtQtdTotal.setText(String.valueOf(entity.getQtdTotal()));
 
 	}
-
+	
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import application.Main;
+import gui.listners.DataChangeListners;
 import gui.util.Alerts;
 import gui.util.Utils;
 import javafx.collections.FXCollections;
@@ -27,7 +28,7 @@ import model.entities.Product;
 import model.services.ProductService;
 
 
-public class ProductListController implements Initializable{
+public class ProductListController implements Initializable, DataChangeListners{
 
 	private ProductService service;
 	
@@ -98,6 +99,7 @@ public class ProductListController implements Initializable{
 			ProductFormController controller = loader.getController();
 			controller.setProduct(obj);
 			controller.setProductService(new ProductService());
+			controller.subscribeDataChangeListner(this);
 			controller.updateFormData();
 			
 			Stage dialogStage = new Stage();
@@ -111,6 +113,11 @@ public class ProductListController implements Initializable{
 		catch (IOException e) {
 		 Alerts.showAlerts("IO Exception", "Erro carregando a janela", e.getMessage(), AlertType.ERROR);
 		}
+	}
+
+	@Override
+	public void onDataChanged() {
+		updateTableView();
 	}
 	
 }
