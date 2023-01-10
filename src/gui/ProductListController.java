@@ -1,9 +1,12 @@
 package gui;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import application.Main;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,9 +16,12 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.entities.Product;
+import model.services.ProductService;
 
 public class ProductListController implements Initializable{
 
+	private ProductService service;
+	
 	@FXML
 	private TableView<Product> tableViewProduto;
 	
@@ -37,9 +43,15 @@ public class ProductListController implements Initializable{
 	@FXML
 	private Button btNovo;
 	
+	private ObservableList<Product> obsList;
+	
 	@FXML
 	public void onBtNovoAction(ActionEvent event ) {
 		System.out.println("onBtNovoAction");
+	}
+	
+	public void setProductService(ProductService service) {
+		this.service = service;
 	}
 	
 	@Override
@@ -58,4 +70,13 @@ public class ProductListController implements Initializable{
 		tableViewProduto.prefHeightProperty().bind(stage.heightProperty());
 	}
 
+	public void updateTableView() {
+		if(service == null) {
+			throw new IllegalStateException("Serviço estava nulo!");
+		}
+		List<Product> list = service.findAll();
+		obsList = FXCollections.observableArrayList(list);
+		tableViewProduto.setItems(obsList);
+	}
+	
 }

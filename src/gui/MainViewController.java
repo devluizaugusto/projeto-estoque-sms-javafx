@@ -15,6 +15,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
+import model.services.ProductService;
 
 public class MainViewController implements Initializable {
 
@@ -26,7 +27,7 @@ public class MainViewController implements Initializable {
 
 	@FXML
 	public void onMenuItemProdutoAction() {
-		loadView("/gui/ProductList.fxml");
+		loadView2("/gui/ProductList.fxml");
 	}
 
 	@FXML
@@ -51,6 +52,29 @@ public class MainViewController implements Initializable {
 			mainVbox.getChildren().clear();
 			mainVbox.getChildren().add(mainMenu);
 			mainVbox.getChildren().addAll(newVbBox.getChildren());
+			
+		} catch (IOException e) {
+			Alerts.showAlerts("IO Exception", "Error ", e.getMessage(), AlertType.ERROR);
+		}
+
+	}
+	
+	private synchronized void loadView2(String absoluteName) {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
+			VBox newVbBox = loader.load();
+			
+			Scene mainScene = Main.getMainScene();
+			VBox mainVbox = (VBox) ((ScrollPane) mainScene.getRoot()).getContent();
+			
+			Node mainMenu = mainVbox.getChildren().get(0);
+			mainVbox.getChildren().clear();
+			mainVbox.getChildren().add(mainMenu);
+			mainVbox.getChildren().addAll(newVbBox.getChildren());
+			
+			ProductListController controller = loader.getController();
+			controller.setProductService(new ProductService());
+			controller.updateTableView();
 			
 		} catch (IOException e) {
 			Alerts.showAlerts("IO Exception", "Error ", e.getMessage(), AlertType.ERROR);
