@@ -1,22 +1,31 @@
 package gui;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
 import application.Main;
+import gui.util.Alerts;
+import gui.util.Utils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.entities.Product;
 import model.services.ProductService;
+
 
 public class ProductListController implements Initializable{
 
@@ -46,8 +55,9 @@ public class ProductListController implements Initializable{
 	private ObservableList<Product> obsList;
 	
 	@FXML
-	public void onBtNovoAction(ActionEvent event ) {
-		System.out.println("onBtNovoAction");
+	public void onBtNovoAction(ActionEvent event) {
+		Stage parentStage = Utils.currentStage(event);
+		createDialogForm("/gui/ProductForm.fxml", parentStage);
 	}
 	
 	public void setProductService(ProductService service) {
@@ -77,6 +87,24 @@ public class ProductListController implements Initializable{
 		List<Product> list = service.findAll();
 		obsList = FXCollections.observableArrayList(list);
 		tableViewProduto.setItems(obsList);
+	}
+	
+	private void createDialogForm(String absoluteName, Stage parentStage) {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
+			Pane pane = loader.load();
+			
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Entre com os dados do Produto");
+			dialogStage.setScene(new Scene(pane));
+			dialogStage.setResizable(false);
+			dialogStage.initOwner(parentStage);
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.showAndWait();
+		}
+		catch (IOException e) {
+		 Alerts.showAlerts("IO Exception", "Erro carregando a janela", e.getMessage(), AlertType.ERROR);
+		}
 	}
 	
 }
