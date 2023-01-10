@@ -3,6 +3,7 @@ package gui;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.function.Consumer;
 
 import application.Main;
 import gui.util.Alerts;
@@ -27,39 +28,23 @@ public class MainViewController implements Initializable {
 
 	@FXML
 	public void onMenuItemProdutoAction() {
-		loadView2("/gui/ProductList.fxml");
+		loadView("/gui/ProductList.fxml", (ProductListController controller) -> {
+		controller.setProductService(new ProductService());
+		controller.updateTableView();
+		});
 	}
 
 	@FXML
 	public void onMenuItemSobreAction() {
-		loadView("/gui/About.fxml");
+		loadView("/gui/About.fxml", x -> {});
 	}
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 
 	}
-
-	private synchronized void loadView(String absoluteName) {
-		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
-			VBox newVbBox = loader.load();
-			
-			Scene mainScene = Main.getMainScene();
-			VBox mainVbox = (VBox) ((ScrollPane) mainScene.getRoot()).getContent();
-			
-			Node mainMenu = mainVbox.getChildren().get(0);
-			mainVbox.getChildren().clear();
-			mainVbox.getChildren().add(mainMenu);
-			mainVbox.getChildren().addAll(newVbBox.getChildren());
-			
-		} catch (IOException e) {
-			Alerts.showAlerts("IO Exception", "Error ", e.getMessage(), AlertType.ERROR);
-		}
-
-	}
 	
-	private synchronized void loadView2(String absoluteName) {
+	private synchronized <T> void loadView(String absoluteName, Consumer<T> initializingAction) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
 			VBox newVbBox = loader.load();
@@ -72,9 +57,8 @@ public class MainViewController implements Initializable {
 			mainVbox.getChildren().add(mainMenu);
 			mainVbox.getChildren().addAll(newVbBox.getChildren());
 			
-			ProductListController controller = loader.getController();
-			controller.setProductService(new ProductService());
-			controller.updateTableView();
+			T controller = loader.getController();
+			initializingAction.accept(controller);
 			
 		} catch (IOException e) {
 			Alerts.showAlerts("IO Exception", "Error ", e.getMessage(), AlertType.ERROR);
