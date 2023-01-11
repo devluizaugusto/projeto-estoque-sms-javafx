@@ -10,13 +10,13 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="252.0" prefWidth="427.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ProductFormController">
+<AnchorPane prefHeight="315.0" prefWidth="586.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ProductFormController">
    <children>
-      <GridPane prefHeight="218.0" prefWidth="396.0">
+      <GridPane prefHeight="218.0" prefWidth="542.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="125.0" minWidth="10.0" prefWidth="73.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="206.0" minWidth="10.0" prefWidth="176.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="187.0" minWidth="10.0" prefWidth="139.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="206.0" minWidth="10.0" prefWidth="188.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="251.0" minWidth="10.0" prefWidth="223.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints maxHeight="43.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
@@ -52,7 +52,10 @@
             <TextField fx:id="txtQtdEntrada" prefHeight="25.0" prefWidth="106.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="txtQtdSaida" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <TextField fx:id="txtQtdTotal" prefHeight="25.0" prefWidth="112.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <Label fx:id="labelError" textFill="#ee0808" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Label fx:id="labelErrorName" textFill="#ee0808" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Label fx:id="labelErrorQtdEntrada" textFill="#f80909" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <Label fx:id="labelErrorQtdSaida" textFill="#ee0b0b" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            <Label fx:id="labelErrorQtdTotal" textFill="#e80e0e" GridPane.columnIndex="2" GridPane.rowIndex="4" />
             <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                <children>
                   <Button fx:id="btSalvar" mnemonicParsing="false" onAction="#onBtSalvar" text="Salvar" />

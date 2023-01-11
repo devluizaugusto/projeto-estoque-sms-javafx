@@ -3,7 +3,9 @@ package gui;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 import db.DbException;
 import gui.listners.DataChangeListners;
@@ -18,6 +20,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import model.entities.Product;
+import model.exceptions.ValidationException;
 import model.services.ProductService;
 
 public class ProductFormController implements Initializable {
@@ -44,7 +47,16 @@ public class ProductFormController implements Initializable {
 	private TextField txtQtdTotal;
 
 	@FXML
-	private Label labelError;
+	private Label labelErrorName;
+	
+	@FXML
+	private Label labelErrorQtdEntrada;
+	
+	@FXML
+	private Label labelErrorQtdSaida;
+	
+	@FXML
+	private Label labelErrorQtdTotal;
 
 	@FXML
 	private Button btSalvar;
@@ -78,6 +90,9 @@ public class ProductFormController implements Initializable {
 		notifyDataChangeListner();
 		Utils.currentStage(event).close();
 	}
+		catch (ValidationException e) {
+			setErrorMessages(e.getErrors());
+		}
 		catch (DbException e) {
 			Alerts.showAlerts("Erro salvando produto", null, e.getMessage(), AlertType.ERROR);
 		}
@@ -91,11 +106,33 @@ public class ProductFormController implements Initializable {
 	private Product getFormData() {
 		Product obj = new Product();
 		
+		ValidationException exception = new ValidationException("ERRO NA VALIDAÇÃO");
+		
 		obj.setId(Utils.tryParseToInt(txtId.getText()));
+		
+		if(txtNome.getText() == null || txtNome.getText().trim().equals("")) {
+			exception.addErrors("nome", "CAMPO DE TEXTO NAO PODE SER VAZIO");
+		}
 		obj.setNome(txtNome.getText());
+		
+		if(txtQtdEntrada.getText() == null || txtQtdEntrada.getText().trim().equals("")) {
+			exception.addErrors("qtdEntrada", "CAMPO DE TEXTO NAO PODE SER VAZIO");
+		}
 		obj.setQtdEntrada(Utils.tryParseToInt(txtQtdEntrada.getText()));
+		
+		if(txtQtdSaida.getText() == null || txtQtdSaida.getText().trim().equals("")) {
+			exception.addErrors("qtdSaida", "CAMPO DE TEXTO NAO PODE SER VAZIO");
+		}
 		obj.setQtdSaida(Utils.tryParseToInt(txtQtdSaida.getText()));
+		
+		if(txtQtdTotal.getText() == null || txtQtdTotal.getText().trim().equals("")) {
+			exception.addErrors("qtdTotal", "CAMPO DE TEXTO NAO PODE SER VAZIO");
+		}
 		obj.setQtdTotal(Utils.tryParseToInt(txtQtdTotal.getText()));
+		
+		if(exception.getErrors().size() > 0) {
+			throw exception;
+		}
 		
 		return obj;
 	}
@@ -128,6 +165,15 @@ public class ProductFormController implements Initializable {
 		txtQtdSaida.setText(String.valueOf(entity.getQtdSaida()));
 		txtQtdTotal.setText(String.valueOf(entity.getQtdTotal()));
 
+	}
+	
+	private void setErrorMessages(Map<String, String> errors) {
+		Set<String> fields = errors.keySet();
+		
+		labelErrorName.setText(fields.contains("nome") ? errors.get("nome") : "");
+		labelErrorQtdEntrada.setText(fields.contains("qtdEntrada") ? errors.get("qtdEntrada") : "");
+		labelErrorQtdSaida.setText(fields.contains("qtdSaida") ? errors.get("qtdSaida") : "");
+		labelErrorQtdTotal.setText(fields.contains("qtdTotal") ? errors.get("qtdTotal") : "");
 	}
 	
 }

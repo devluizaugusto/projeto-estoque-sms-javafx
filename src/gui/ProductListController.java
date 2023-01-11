@@ -27,7 +27,6 @@ import javafx.stage.Stage;
 import model.entities.Product;
 import model.services.ProductService;
 
-
 public class ProductListController implements Initializable, DataChangeListners{
 
 	private ProductService service;
