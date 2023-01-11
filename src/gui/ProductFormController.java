@@ -138,8 +138,8 @@ public class ProductFormController implements Initializable {
 	}
 
 	@FXML
-	public void onBtCancelar() {
-		System.out.println("onBtCancelar");
+	public void onBtCancelar(ActionEvent event) {
+		Utils.currentStage(event).close();
 	}
 
 	@Override
