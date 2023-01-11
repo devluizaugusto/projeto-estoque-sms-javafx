@@ -31,6 +31,7 @@
             <TableColumn fx:id="tableColumnQtdEntrada" prefWidth="84.0" text="Qtd Entrada" />
             <TableColumn fx:id="tableColumnQtdSaida" prefWidth="64.0" text="Qtd Saida" />
             <TableColumn fx:id="tableColumnQtdTotal" prefWidth="73.0" text="Qtd Total" />
+            <TableColumn fx:id="tableColumnEditar" prefWidth="75.0" />
         </columns>
       </TableView>
    </children>

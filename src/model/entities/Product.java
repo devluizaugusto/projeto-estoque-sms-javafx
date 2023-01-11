@@ -62,6 +62,7 @@ public class Product implements Serializable{
 	public void setQtdTotal(Integer qtdTotal) {
 		this.qtdTotal = qtdTotal;
 	}
+	
 
 	@Override
 	public int hashCode() {

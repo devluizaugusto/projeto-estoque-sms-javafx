@@ -101,6 +101,12 @@ public class ProductFormController implements Initializable {
 		for (DataChangeListners listner : dataChangeListner) {
 			listner.onDataChanged();
 		}
+		
+	}
+	
+	@FXML
+	public void onBtCancelar(ActionEvent event) {
+		Utils.currentStage(event).close();
 	}
 
 	private Product getFormData() {
@@ -137,11 +143,6 @@ public class ProductFormController implements Initializable {
 		return obj;
 	}
 
-	@FXML
-	public void onBtCancelar(ActionEvent event) {
-		Utils.currentStage(event).close();
-	}
-
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		initializeNodes();
@@ -175,5 +176,4 @@ public class ProductFormController implements Initializable {
 		labelErrorQtdSaida.setText(fields.contains("qtdSaida") ? errors.get("qtdSaida") : "");
 		labelErrorQtdTotal.setText(fields.contains("qtdTotal") ? errors.get("qtdTotal") : "");
 	}
-	
 }
