@@ -1,12 +1,13 @@
 package gui;
 
 import java.io.IOException;
-
 import java.net.URL;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import application.Main;
+import db.DbIntegretyException;
 import gui.listners.DataChangeListners;
 import gui.util.Alerts;
 import gui.util.Utils;
@@ -20,6 +21,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -54,6 +56,9 @@ public class ProductListController implements Initializable, DataChangeListners 
 
 	@FXML
 	private TableColumn<Product, Product> tableColumnEditar;
+
+	@FXML
+	private TableColumn<Product, Product> tableColumnRemover;
 
 	@FXML
 	private Button btNovo;
@@ -95,6 +100,7 @@ public class ProductListController implements Initializable, DataChangeListners 
 		obsList = FXCollections.observableArrayList(list);
 		tableViewProduto.setItems(obsList);
 		initEditButtons();
+		initRemoveButtons();
 	}
 
 	private void createDialogForm(Product obj, String absoluteName, Stage parentStage) {
@@ -125,8 +131,6 @@ public class ProductListController implements Initializable, DataChangeListners 
 		updateTableView();
 	}
 
-	
-
 	private void initEditButtons() {
 		tableColumnEditar.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
 		tableColumnEditar.setCellFactory(param -> new TableCell<Product, Product>() {
@@ -140,11 +144,44 @@ public class ProductListController implements Initializable, DataChangeListners 
 					return;
 				}
 				setGraphic(button);
-				button.setOnAction(
-						event -> createDialogForm(obj, "/gui/ProductForm.fxml", Utils.currentStage(event)));
+				button.setOnAction(event -> createDialogForm(obj, "/gui/ProductForm.fxml", Utils.currentStage(event)));
 			}
 		});
-		
+
 	}
 
+	private void initRemoveButtons() {
+		tableColumnRemover.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+		tableColumnRemover.setCellFactory(param -> new TableCell<Product, Product>() {
+			private final Button button = new Button("Remover");
+
+			@Override
+			protected void updateItem(Product obj, boolean empty) {
+				super.updateItem(obj, empty);
+				if (obj == null) {
+					setGraphic(null);
+					return;
+				}
+				setGraphic(button);
+				button.setOnAction(event -> removeEntity(obj));
+			}
+		});
+	}
+	
+	private void removeEntity(Product obj) {
+		Optional<ButtonType> result = Alerts.showConfirmation("CONFIRMAÇÃO", "TEM CERTEZA QUE DESEJA REMOVER?");
+		
+		if(result.get() == ButtonType.OK) {
+			if(service == null) {
+				throw new IllegalStateException("SERVIÇO ESTAVA NULO");
+			}
+			try {
+				service.remove(obj);
+				updateTableView();
+			}
+			catch (DbIntegretyException e) {
+				Alerts.showAlerts("ERRO NA REMOÇÃO DO PRODUTO", null, e.getMessage(), AlertType.ERROR);
+			}
+		}
+	}
 }
