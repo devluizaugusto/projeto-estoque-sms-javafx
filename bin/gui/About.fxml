@@ -2,8 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -25,13 +23,16 @@
             <Font name="System Italic" size="14.0" />
          </font>
       </Label>
-      <ImageView fitHeight="150.0" fitWidth="268.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../Desktop/Documentos/4844646_stock-photo-3d-white-people-stock-boy-stacking-boxes.jpg" />
-         </image>
-         <VBox.margin>
+      <Label prefHeight="9.0" prefWidth="312.0" text="Desenvolvido por Luiz Augusto de Andrade Silva">
+         <padding>
             <Insets left="20.0" />
+         </padding>
+         <font>
+            <Font name="System Italic" size="14.0" />
+         </font>
+         <VBox.margin>
+            <Insets />
          </VBox.margin>
-      </ImageView>
+      </Label>
    </children>
 </VBox>

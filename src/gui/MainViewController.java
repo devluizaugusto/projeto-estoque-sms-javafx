@@ -17,11 +17,15 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import model.services.ProductService;
+import model.services.SetoresService;
 
 public class MainViewController implements Initializable {
 
 	@FXML
 	private MenuItem menuItemProduto;
+	
+	@FXML
+	private MenuItem menuItemSetor;
 
 	@FXML
 	private MenuItem menuItemSobre;
@@ -33,6 +37,14 @@ public class MainViewController implements Initializable {
 		controller.updateTableView();
 		});
 	}
+	
+	@FXML
+	public void onMenuItemSetorAction() {
+		loadView("/gui/SetorList.fxml", (SetorListController controller) -> {
+		controller.setSetoresService(new SetoresService());
+		controller.updateTableView();
+		});
+	}
 
 	@FXML
 	public void onMenuItemSobreAction() {
@@ -41,7 +53,6 @@ public class MainViewController implements Initializable {
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-
 	}
 	
 	private synchronized <T> void loadView(String absoluteName, Consumer<T> initializingAction) {

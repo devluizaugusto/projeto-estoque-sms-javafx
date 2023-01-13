@@ -1,20 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainViewController">
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="456.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainViewController">
    <content>
-      <VBox prefHeight="200.0" prefWidth="599.0">
+      <VBox prefHeight="389.0" prefWidth="431.0">
          <children>
             <MenuBar>
               <menus>
                 <Menu mnemonicParsing="false" text="Registros">
                   <items>
                     <MenuItem fx:id="menuItemProduto" mnemonicParsing="false" onAction="#onMenuItemProdutoAction" text="Produtos" />
+                        <MenuItem fx:id="menuItemSetor" mnemonicParsing="false" onAction="#onMenuItemSetorAction" text="Setores" />
                   </items>
                 </Menu>
                 <Menu fx:id="menuItemSobre" mnemonicParsing="false" onAction="#onMenuItemSobreAction" text="Ajuda">
@@ -24,6 +29,16 @@
                 </Menu>
               </menus>
             </MenuBar>
+            <Label text="Sistema de Estoque de Produtos da SMS" textFill="#f80606">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="331.0" fitWidth="533.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../Desktop/Documentos/4844646_stock-photo-3d-white-people-stock-boy-stacking-boxes.jpg" />
+               </image>
+            </ImageView>
          </children>
       </VBox>
    </content>
