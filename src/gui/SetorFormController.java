@@ -101,7 +101,7 @@ public class SetorFormController implements Initializable{
 		if (txtName.getText() == null || txtName.getText().trim().equals("")) {
 			exception.addErrors("name", "FIELD CAN'T BE EMPTY");
 		}
-		obj.setName(txtName.getText());
+		obj.setNome(txtName.getText());
 
 		if(exception.getErrors().size() > 0) {
 			throw exception;
@@ -119,7 +119,7 @@ public class SetorFormController implements Initializable{
 
 	private void initializeNodes() {
 		Constraints.setTextFieldInteger(txtId);
-		Constraints.setTextFieldMaxLenght(txtName, 30);
+		Constraints.setTextFieldMaxLength(txtName, 30);
 	}
 
 	public void updateFormData() {
@@ -127,14 +127,14 @@ public class SetorFormController implements Initializable{
 			throw new IllegalStateException("ENTITY WAS NULL");
 		}
 		txtId.setText(String.valueOf(entity.getId()));
-		txtName.setText(entity.getName());
+		txtName.setText(entity.getNome());
 	}
 	
 	private void setErrorMessages(Map<String, String> errors) {
 		Set<String> fields = errors.keySet();
 		
-		if(fields.contains("name")) {
-			labelErrorName.setText(errors.get("name"));
+		if(fields.contains("nome")) {
+			labelErrorName.setText(errors.get("nome"));
 		}
 	}
 }

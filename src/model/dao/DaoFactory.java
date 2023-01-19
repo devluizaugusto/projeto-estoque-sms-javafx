@@ -13,4 +13,5 @@ public class DaoFactory {
 	public static SetoresDao createSetoresDao() {
 		return new SetoresDaoJDBC(DB.getConnection());
 	}
+	
 }

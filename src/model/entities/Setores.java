@@ -7,14 +7,14 @@ public class Setores implements Serializable {
 private static final long serialVersionUID = 1L;
 	
 	private Integer id;
-	private String name;
+	private String nome;
 	
 	public Setores() {
 	}
 
-	public Setores(Integer id, String name) {
+	public Setores(Integer id, String nome) {
 		this.id = id;
-		this.name = name;
+		this.nome = nome;
 	}
 
 	public Integer getId() {
@@ -25,12 +25,12 @@ private static final long serialVersionUID = 1L;
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	@Override
@@ -60,7 +60,7 @@ private static final long serialVersionUID = 1L;
 
 	@Override
 	public String toString() {
-		return name;
+		return nome;
 	}
 	
 }

@@ -28,13 +28,13 @@ private Connection conn;
 		
 		try {
 			ps = conn.prepareStatement(
-					"INSERT INTO setores "
-					+ "(Name) "
+					"INSERT INTO setor "
+					+ "(Nome) "
 					+ "VALUES "
 					+ "(?)",
 					Statement.RETURN_GENERATED_KEYS);
 			
-			ps.setString(1, obj.getName());
+			ps.setString(1, obj.getNome());
 			
 			int rowsAffected = ps.executeUpdate();
 			
@@ -61,11 +61,11 @@ private Connection conn;
 		
 		try {
 			ps = conn.prepareStatement(
-					"UPDATE setores "
-					+ "SET Name = ? "
+					"UPDATE setor "
+					+ "SET Nome = ? "
 					+ "WHERE Id = ?");
 			
-			ps.setString(1, obj.getName());
+			ps.setString(1, obj.getNome());
 			ps.setInt(2, obj.getId());
 			
 			ps.executeUpdate();
@@ -83,7 +83,7 @@ private Connection conn;
 		PreparedStatement st = null;
 		try {
 			st = conn.prepareStatement(
-				"DELETE FROM setores WHERE Id = ?");
+				"DELETE FROM setor WHERE Id = ?");
 
 			st.setInt(1, id);
 
@@ -106,7 +106,7 @@ private Connection conn;
 		
 		try {
 			ps = conn.prepareStatement(
-					"SELECT * FROM setores WHERE ID = ?");
+					"SELECT * FROM setor WHERE ID = ?");
 			
 			ps.setInt(1, id);
 			
@@ -115,7 +115,7 @@ private Connection conn;
 			if(rs.next()) {
 				Setores obj = new Setores();
 				obj.setId(rs.getInt("Id"));
-				obj.setName(rs.getString("Name"));
+				obj.setNome(rs.getString("Nome"));
 				return obj;
 			}
 			return null;
@@ -136,7 +136,7 @@ private Connection conn;
 		
 		try {
 			ps = conn.prepareStatement(
-					"SELECT * FROM setores ORDER BY Name");
+					"SELECT * FROM setor ORDER BY Nome");
 			
 			rs = ps.executeQuery();
 			
@@ -145,7 +145,7 @@ private Connection conn;
 			while(rs.next()) {
 				Setores obj = new Setores();
 				obj.setId(rs.getInt("Id"));
-				obj.setName(rs.getString("Name"));
+				obj.setNome(rs.getString("Nome"));
 				list.add(obj);
 			}
 			return list;

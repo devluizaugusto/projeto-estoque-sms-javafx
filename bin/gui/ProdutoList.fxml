@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="344.0" prefWidth="779.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ProdutoListController">
+   <children>
+      <Label text="Registro de Produtos">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <ToolBar prefHeight="40.0" prefWidth="200.0">
+        <items>
+          <Button fx:id="btNovo" mnemonicParsing="false" onAction="#onBtNewAction" text="Novo" />
+        </items>
+      </ToolBar>
+      <TableView fx:id="tableViewProduto" prefHeight="200.0" prefWidth="200.0">
+        <columns>
+          <TableColumn fx:id="tableColumnId" prefWidth="49.0" text="Id" />
+          <TableColumn fx:id="tableColumnNome" prefWidth="111.0" text="Nome" />
+            <TableColumn fx:id="tableColumnDataEntrada" prefWidth="107.0" text="Data de Entrada" />
+            <TableColumn fx:id="tableColumnQtdEntrada" prefWidth="107.0" text="Qtd de Entrada" />
+            <TableColumn fx:id="tableColumnQtdSaida" prefWidth="88.0" text="Qtd de Saida" />
+            <TableColumn fx:id="tableColumnQtdTotal" prefWidth="76.0" text="Qtd Total" />
+            <TableColumn fx:id="tableColumnDataSaida" prefWidth="94.0" text="Data de Saida" />
+            <TableColumn fx:id="tableColumnEditar" minWidth="0.0" prefWidth="78.0" />
+            <TableColumn fx:id="tableColumnRemover" prefWidth="82.0" />
+        </columns>
+      </TableView>
+   </children>
+</VBox>

@@ -20,8 +20,8 @@ import model.services.ProductService;
 import model.services.SetoresService;
 
 public class MainViewController implements Initializable {
-
-	@FXML
+	
+	@FXML 
 	private MenuItem menuItemProduto;
 	
 	@FXML
@@ -32,12 +32,12 @@ public class MainViewController implements Initializable {
 
 	@FXML
 	public void onMenuItemProdutoAction() {
-		loadView("/gui/ProductList.fxml", (ProductListController controller) -> {
-		controller.setProductService(new ProductService());
-		controller.updateTableView();
+		loadView("/gui/ProdutoList.fxml", (ProdutoListController controller) -> {
+			controller.setProductService(new ProductService());
+			controller.updateTableView();
 		});
 	}
-	
+
 	@FXML
 	public void onMenuItemSetorAction() {
 		loadView("/gui/SetorList.fxml", (SetorListController controller) -> {
@@ -72,7 +72,7 @@ public class MainViewController implements Initializable {
 			initializingAction.accept(controller);
 			
 		} catch (IOException e) {
-			Alerts.showAlerts("IO Exception", "Error ", e.getMessage(), AlertType.ERROR);
+			Alerts.showAlerts("IO Exception", "ERRO CARREGANDO JANELA ", e.getMessage(), AlertType.ERROR);
 		}
 
 	}

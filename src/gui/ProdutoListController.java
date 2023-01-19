@@ -2,6 +2,7 @@ package gui;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -31,11 +32,12 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.entities.Product;
 import model.services.ProductService;
+import model.services.SetoresService;
 
-public class ProductListController implements Initializable, DataChangeListners {
+public class ProdutoListController implements Initializable, DataChangeListners {
 
 	private ProductService service;
-
+	
 	@FXML
 	private TableView<Product> tableViewProduto;
 
@@ -44,32 +46,38 @@ public class ProductListController implements Initializable, DataChangeListners 
 
 	@FXML
 	private TableColumn<Product, String> tableColumnNome;
-
+	
+	@FXML
+	private TableColumn<Product, Date> tableColumnDataEntrada;
+	
 	@FXML
 	private TableColumn<Product, Integer> tableColumnQtdEntrada;
-
+	
 	@FXML
 	private TableColumn<Product, Integer> tableColumnQtdSaida;
-
+	
 	@FXML
 	private TableColumn<Product, Integer> tableColumnQtdTotal;
 
+	@FXML
+	private TableColumn<Product, Date> tableColumnDataSaida;
+	
 	@FXML
 	private TableColumn<Product, Product> tableColumnEditar;
 
 	@FXML
 	private TableColumn<Product, Product> tableColumnRemover;
-
+	
 	@FXML
 	private Button btNovo;
 
 	private ObservableList<Product> obsList;
 
 	@FXML
-	public void onBtNovoAction(ActionEvent event) {
+	public void onBtNewAction(ActionEvent event) {
 		Stage parentStage = Utils.currentStage(event);
 		Product obj = new Product();
-		createDialogForm(obj, "/gui/ProductForm.fxml", parentStage);
+		createDialogForm(obj, "/gui/ProdutoForm.fxml", parentStage);
 	}
 
 	public void setProductService(ProductService service) {
@@ -84,17 +92,21 @@ public class ProductListController implements Initializable, DataChangeListners 
 	private void initializeNodes() {
 		tableColumnId.setCellValueFactory(new PropertyValueFactory<>("id"));
 		tableColumnNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+		tableColumnDataEntrada.setCellValueFactory(new PropertyValueFactory<>("dataEntrada"));
+		Utils.formatTableColumnDate(tableColumnDataEntrada, "dd/MM/yyyy");
 		tableColumnQtdEntrada.setCellValueFactory(new PropertyValueFactory<>("qtdEntrada"));
 		tableColumnQtdSaida.setCellValueFactory(new PropertyValueFactory<>("qtdSaida"));
 		tableColumnQtdTotal.setCellValueFactory(new PropertyValueFactory<>("qtdTotal"));
-
+		tableColumnDataSaida.setCellValueFactory(new PropertyValueFactory<>("dataSaida"));
+		Utils.formatTableColumnDate(tableColumnDataSaida, "dd/MM/yyyy");
+	
 		Stage stage = (Stage) Main.getMainScene().getWindow();
 		tableViewProduto.prefHeightProperty().bind(stage.heightProperty());
 	}
 
 	public void updateTableView() {
 		if (service == null) {
-			throw new IllegalStateException("Serviço estava nulo!");
+			throw new IllegalStateException("Service was null");
 		}
 		List<Product> list = service.findAll();
 		obsList = FXCollections.observableArrayList(list);
@@ -102,28 +114,32 @@ public class ProductListController implements Initializable, DataChangeListners 
 		initEditButtons();
 		initRemoveButtons();
 	}
-
+	
 	private void createDialogForm(Product obj, String absoluteName, Stage parentStage) {
+		
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
 			Pane pane = loader.load();
 
-			ProductFormController controller = loader.getController();
+			ProdutoFormController controller = loader.getController();
 			controller.setProduct(obj);
-			controller.setProductService(new ProductService());
+			controller.setServices(new ProductService(), new SetoresService());
+			controller.loadAssociateObjects();
 			controller.subscribeDataChangeListner(this);
 			controller.updateFormData();
 
 			Stage dialogStage = new Stage();
-			dialogStage.setTitle("Entre com os dados do Produto");
+			dialogStage.setTitle("ENTER PRODUCT DATA: ");
 			dialogStage.setScene(new Scene(pane));
 			dialogStage.setResizable(false);
 			dialogStage.initOwner(parentStage);
 			dialogStage.initModality(Modality.WINDOW_MODAL);
 			dialogStage.showAndWait();
 		} catch (IOException e) {
-			Alerts.showAlerts("IO Exception", "Erro carregando a janela", e.getMessage(), AlertType.ERROR);
+			e.printStackTrace();
+			Alerts.showAlerts("IO Exception", "Error Load View", e.getMessage(), AlertType.ERROR);
 		}
+		
 	}
 
 	@Override
@@ -134,7 +150,7 @@ public class ProductListController implements Initializable, DataChangeListners 
 	private void initEditButtons() {
 		tableColumnEditar.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
 		tableColumnEditar.setCellFactory(param -> new TableCell<Product, Product>() {
-			private final Button button = new Button("Editar");
+			private final Button button = new Button("EDITAR");
 
 			@Override
 			protected void updateItem(Product obj, boolean empty) {
@@ -144,16 +160,16 @@ public class ProductListController implements Initializable, DataChangeListners 
 					return;
 				}
 				setGraphic(button);
-				button.setOnAction(event -> createDialogForm(obj, "/gui/ProductForm.fxml", Utils.currentStage(event)));
+				button.setOnAction(
+						event -> createDialogForm(obj, "/gui/ProdutoForm.fxml", Utils.currentStage(event)));
 			}
 		});
-
 	}
 
 	private void initRemoveButtons() {
 		tableColumnRemover.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
 		tableColumnRemover.setCellFactory(param -> new TableCell<Product, Product>() {
-			private final Button button = new Button("Remover");
+			private final Button button = new Button("REMOVER");
 
 			@Override
 			protected void updateItem(Product obj, boolean empty) {
@@ -167,20 +183,20 @@ public class ProductListController implements Initializable, DataChangeListners 
 			}
 		});
 	}
-	
+
 	private void removeEntity(Product obj) {
-		Optional<ButtonType> result = Alerts.showConfirmation("CONFIRMAÇÃO", "TEM CERTEZA QUE DESEJA REMOVER?");
-		
-		if(result.get() == ButtonType.OK) {
-			if(service == null) {
-				throw new IllegalStateException("SERVIÇO ESTAVA NULO");
+		Optional<ButtonType> result = Alerts.showConfirmation("CONFIRMATION", "ARE YOU SURE TO DELETE?");
+
+		if (result.get() == ButtonType.OK) {
+			if (service == null) {
+				throw new IllegalStateException("SERVICE WAS NULL");
 			}
 			try {
 				service.remove(obj);
 				updateTableView();
-			}
+			} 
 			catch (DbIntegretyException e) {
-				Alerts.showAlerts("ERRO NA REMOÇÃO DO PRODUTO", null, e.getMessage(), AlertType.ERROR);
+				Alerts.showAlerts("ERROR REMOVING OBJECT", null, e.getMessage(), AlertType.ERROR);
 			}
 		}
 	}

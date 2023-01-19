@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="456.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainViewController">
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="548.0" prefWidth="809.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainViewController">
    <content>
       <VBox prefHeight="389.0" prefWidth="431.0">
          <children>
@@ -22,9 +22,9 @@
                         <MenuItem fx:id="menuItemSetor" mnemonicParsing="false" onAction="#onMenuItemSetorAction" text="Setores" />
                   </items>
                 </Menu>
-                <Menu fx:id="menuItemSobre" mnemonicParsing="false" onAction="#onMenuItemSobreAction" text="Ajuda">
+                <Menu mnemonicParsing="false" text="Ajuda">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Sobre" />
+                    <MenuItem fx:id="menuItemSobre" mnemonicParsing="false" onAction="#onMenuItemSobreAction" text="Sobre" />
                   </items>
                 </Menu>
               </menus>
@@ -34,7 +34,7 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <ImageView fitHeight="331.0" fitWidth="533.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="486.0" fitWidth="647.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../../Desktop/Documentos/4844646_stock-photo-3d-white-people-stock-boy-stacking-boxes.jpg" />
                </image>
