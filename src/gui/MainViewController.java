@@ -55,25 +55,25 @@ public class MainViewController implements Initializable {
 	public void initialize(URL url, ResourceBundle rb) {
 	}
 	
-	private synchronized <T> void loadView(String absoluteName, Consumer<T> initializingAction) {
+	private synchronized <T> void loadView(String absoluteName, Consumer<T> intializingAction) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
-			VBox newVbBox = loader.load();
-			
+			VBox newVbox = loader.load();
+		
 			Scene mainScene = Main.getMainScene();
-			VBox mainVbox = (VBox) ((ScrollPane) mainScene.getRoot()).getContent();
+			VBox mainVbox = (VBox)((ScrollPane)mainScene.getRoot()).getContent();
 			
-			Node mainMenu = mainVbox.getChildren().get(0);
+			Node mainMenu = mainVbox.getChildren().get(0); 
 			mainVbox.getChildren().clear();
 			mainVbox.getChildren().add(mainMenu);
-			mainVbox.getChildren().addAll(newVbBox.getChildren());
+			mainVbox.getChildren().addAll(newVbox.getChildren());
+			
 			
 			T controller = loader.getController();
-			initializingAction.accept(controller);
-			
-		} catch (IOException e) {
-			Alerts.showAlerts("IO Exception", "ERRO CARREGANDO JANELA ", e.getMessage(), AlertType.ERROR);
+			intializingAction.accept(controller);
 		}
-
+		catch (IOException e) {
+			Alerts.showAlerts("IO Exception", "Error loading view", e.getMessage(), AlertType.ERROR);
+		}
 	}
 }

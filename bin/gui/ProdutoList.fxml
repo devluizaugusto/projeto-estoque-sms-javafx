@@ -8,9 +8,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="344.0" prefWidth="779.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ProdutoListController">
+<VBox prefHeight="303.0" prefWidth="859.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ProdutoListController">
    <children>
-      <Label text="Registro de Produtos">
+      <Label text="Controle de Produtos">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -24,13 +24,14 @@
         <columns>
           <TableColumn fx:id="tableColumnId" prefWidth="49.0" text="Id" />
           <TableColumn fx:id="tableColumnNome" prefWidth="111.0" text="Nome" />
-            <TableColumn fx:id="tableColumnDataEntrada" prefWidth="107.0" text="Data de Entrada" />
-            <TableColumn fx:id="tableColumnQtdEntrada" prefWidth="107.0" text="Qtd de Entrada" />
-            <TableColumn fx:id="tableColumnQtdSaida" prefWidth="88.0" text="Qtd de Saida" />
-            <TableColumn fx:id="tableColumnQtdTotal" prefWidth="76.0" text="Qtd Total" />
-            <TableColumn fx:id="tableColumnDataSaida" prefWidth="94.0" text="Data de Saida" />
-            <TableColumn fx:id="tableColumnEditar" minWidth="0.0" prefWidth="78.0" />
-            <TableColumn fx:id="tableColumnRemover" prefWidth="82.0" />
+            <TableColumn fx:id="tableColumnDataEntrada" prefWidth="95.0" text="Data Entrada" />
+            <TableColumn fx:id="tableColumnQtdEntrada" prefWidth="93.0" text="Qtd Entrada" />
+            <TableColumn fx:id="tableColumnQtdSaida" prefWidth="85.0" text="Qtd Saida" />
+            <TableColumn fx:id="tableColumnQtdTotal" prefWidth="77.0" text="Qtd Total" />
+            <TableColumn fx:id="tableColumnDataSaida" prefWidth="93.0" text="Data Saida" />
+            <TableColumn fx:id="tableColumnNomeSetor" minWidth="0.0" prefWidth="107.0" text="Setor Destino" />
+            <TableColumn fx:id="tableColumnEditar" />
+            <TableColumn fx:id="tableColumnRemover" prefWidth="77.0" />
         </columns>
       </TableView>
    </children>

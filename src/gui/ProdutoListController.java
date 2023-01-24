@@ -63,6 +63,9 @@ public class ProdutoListController implements Initializable, DataChangeListners 
 	private TableColumn<Product, Date> tableColumnDataSaida;
 	
 	@FXML
+	private TableColumn<Product, String> tableColumnNomeSetor;
+	
+	@FXML
 	private TableColumn<Product, Product> tableColumnEditar;
 
 	@FXML
@@ -99,6 +102,7 @@ public class ProdutoListController implements Initializable, DataChangeListners 
 		tableColumnQtdTotal.setCellValueFactory(new PropertyValueFactory<>("qtdTotal"));
 		tableColumnDataSaida.setCellValueFactory(new PropertyValueFactory<>("dataSaida"));
 		Utils.formatTableColumnDate(tableColumnDataSaida, "dd/MM/yyyy");
+		tableColumnNomeSetor.setCellValueFactory(new PropertyValueFactory<>("setor"));
 	
 		Stage stage = (Stage) Main.getMainScene().getWindow();
 		tableViewProduto.prefHeightProperty().bind(stage.heightProperty());

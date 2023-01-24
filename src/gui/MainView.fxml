@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -7,12 +8,13 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="548.0" prefWidth="809.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainViewController">
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="616.0" prefWidth="730.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainViewController">
    <content>
-      <VBox prefHeight="389.0" prefWidth="431.0">
+      <VBox prefHeight="606.0" prefWidth="705.0">
          <children>
             <MenuBar>
               <menus>
@@ -29,12 +31,19 @@
                 </Menu>
               </menus>
             </MenuBar>
-            <Label text="Sistema de Estoque de Produtos da SMS" textFill="#f80606">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
-            <ImageView fitHeight="486.0" fitWidth="647.0" pickOnBounds="true" preserveRatio="true">
+            <HBox prefHeight="8.0" prefWidth="633.0">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="638.0" text="MENU PRINCIPAL" textFill="#4f0ee3">
+                     <padding>
+                        <Insets left="250.0" />
+                     </padding>
+                     <font>
+                        <Font name="System Bold Italic" size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <ImageView fitHeight="551.0" fitWidth="758.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../../Desktop/Documentos/4844646_stock-photo-3d-white-people-stock-boy-stacking-boxes.jpg" />
                </image>

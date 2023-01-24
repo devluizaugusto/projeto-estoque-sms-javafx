@@ -1,7 +1,8 @@
 package application;
-	
-import javafx.application.Application;
 
+import java.io.IOException;
+
+import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
@@ -22,10 +23,11 @@ public class Main extends Application {
 			
 			mainScene = new Scene(scrollPane);
 			primaryStage.setScene(mainScene);
-			primaryStage.setTitle("PROJETO ESTOQUE PRODUTOS SMS");
+			primaryStage.setTitle("PRODUCT STOCK SMS");
+			primaryStage.setResizable(false);
 			primaryStage.show();
 			
-		} catch(Exception e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
@@ -33,7 +35,7 @@ public class Main extends Application {
 	public static Scene getMainScene() {
 		return mainScene;
 	}
-	
+
 	public static void main(String[] args) {
 		launch(args);
 	}
